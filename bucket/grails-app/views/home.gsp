@@ -22,7 +22,7 @@
 	<h3>How does it work?</h3>
 	
 	<p>
-		Simply send an email to some @mailbucket.io address. Then make a GET request to <code>mailbucket.io/&lt;email&gt;</code> to retrieve the email. There is no prior setup of the mailbox required!
+		Simply send an email to some @mailbucket.io address. Then perform a GET request to <code>mailbucket.io/&lt;address&gt;</code> to retrieve the email. There is no prior setup of the mailbox required!
 	</p>
 	
 	<h3>Show me an example!</h3>
@@ -34,7 +34,7 @@
 	
 	<h3>Isn't this insecure?</h3>
 	
-	<p>Well, if you use a simple email like mytest@mailbucket.io, then yes, anybody can read the email you're sending. But don't do that, make up a random email like <code>Y1IhwHzkdnY3z8@mailbucket.io</code> and use that.
+	<p>Well, if you use a simple address like mytest@mailbucket.io, then yes, anybody can read the email you're sending. But don't do that, make up a random address like <code>Y1IhwHzkdnY3z8@mailbucket.io</code> and use that.
 	</p>
 	
 	<h3>Technicalities</h3>
@@ -42,8 +42,8 @@
 	<ul>
 		<li>If the email hasn't been delivered (yet), the request will block for up to 60 seconds until the email is actually delivered. Feel free to make the request again if something is slow for some reason.</li>
 		<li>Emails will be stored for up to 1 hour. After that, they will be deleted.</li>
-		<li>If a second email comes in, it will overwrite the already existing one.</li>
-		<li>Once you retrieve the email, it will be deleted.</li>
+		<li>If a second email comes in with the same address, it will overwrite the already existing one.</li>
+		<li>Once you retrieve the email, it will be deleted forever.</li>
 		<li>You can also checkout the source over on <a href="https://github.com/chris13524/mailbucket">GitHub</a>.</li>
 	</ul>
 </div>
