@@ -22,6 +22,7 @@ class EmailService {
 			.build()
 	
 	private SMTPServer smtpServer
+	private ScheduledExecutorService scheduler
 	
 	void pushEmail(Email email) {
 		log.info("push email: " + (email as JSON))
@@ -71,7 +72,7 @@ class EmailService {
 		smtpServer.start()
 		
 		// setup expiration service
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)
+		scheduler = Executors.newScheduledThreadPool(1)
 		scheduler.scheduleAtFixedRate({
 			deleteExpiredEmails()
 		}, 0, 1, TimeUnit.MINUTES)
@@ -79,5 +80,6 @@ class EmailService {
 	
 	void destroy() {
 		smtpServer.stop()
+		scheduler.shutdown()
 	}
 }
