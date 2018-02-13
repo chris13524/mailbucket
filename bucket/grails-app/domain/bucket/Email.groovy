@@ -24,8 +24,11 @@ class Email {
 	}
 	
 	static mapping = {
-		to column: "`to`"
-		from column: "`from`"
-		subject column: "`subject`"
+		smtpTo type: "text"
+		smtpFrom type: "text"
+		to column: "`to`", type: "text"
+		from column: "`from`", type: "text"
+		subject column: "`subject`", type: "text"
+		body type: "text"
 	}
 }
