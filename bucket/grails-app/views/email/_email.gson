@@ -1,4 +1,5 @@
 import bucket.Email
+import bucket.Header
 
 model {
 	Email email
@@ -11,5 +12,14 @@ json {
 	from email.from
 	subject email.subject
 	body email.body
-	headers g.render(email.headers)
+	headers renderHeaders(email.headers)
+}
+
+String renderHeaders(Set<Header> headers) {
+	String res = "["
+	for (Header header : headers) {
+		res += '"' + header.name + '":"' + header.value + '",'
+	}
+	res += "]"
+	return res
 }
