@@ -44,7 +44,7 @@ class MyMessageHandlerFactory implements MessageHandlerFactory {
 			MimeMessage message = new MimeMessage(s, data)
 			for (Enumeration<MHeader> e = message.getAllHeaders(); e.hasMoreElements();) {
 				MHeader h = e.nextElement()
-				email.headers.put(h.name, h.value)
+				email.addToHeaders(name: h.name, value: h.value)
 				if (h.name == "To") {
 					email.to = h.value
 				} else if (h.name == "From") {

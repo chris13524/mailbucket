@@ -11,7 +11,8 @@ class Email {
 	String from
 	String subject
 	String body
-	Map<String, String> headers = [:]
+	
+	static hasMany = [headers: Header]
 	
 	static constraints = {
 		smtpTo nullable: false
@@ -30,6 +31,5 @@ class Email {
 		from column: "`from`", type: "text"
 		subject column: "`subject`", type: "text"
 		body type: "text"
-		headers type: "text"
 	}
 }

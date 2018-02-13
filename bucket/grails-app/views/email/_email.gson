@@ -11,5 +11,5 @@ json {
 	from email.from
 	subject email.subject
 	body email.body
-	headers email.headers
+	headers g.render(email.headers)
 }
