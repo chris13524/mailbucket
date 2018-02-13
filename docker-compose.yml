@@ -1,0 +1,20 @@
+version: "2"
+services:
+
+  bucket:
+    restart: always
+    image: chris13524/mailbucket:latest
+    build:
+      context: bucket
+    ports:
+      - "25:25"
+      
+  caddy:
+    restart: always
+    image: abiosoft/caddy
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+      - ./caddy/:/root/.caddy/
+    ports:
+      - "80:80"
+      - "443:443"
