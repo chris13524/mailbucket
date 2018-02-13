@@ -46,18 +46,17 @@ class EmailService {
 				Email email = Email.findBySmtpTo(address, [lock: true])
 				
 				if (email != null) {
-					email.headers.forEach({ String s, String s2 ->
+					email.headers.forEach({ Header header ->
 						// this fetches the headers cus I can't get eager fetching to work with H2
 					})
 					
 					log.info("pop email: " + (email as JSON))
-					
 					email.delete(flush: true)
 				}
 				
 				return email
 			})
-		} catch (RetryException e) {
+		} catch (RetryException ignored) {
 			return null
 		}
 	}
