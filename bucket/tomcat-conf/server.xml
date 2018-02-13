@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="8005" shutdown="SHUTDOWN">
+	<!-- Prevent memory leaks due to use of particular java/javax APIs-->
+	<Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+	<Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+	<Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+	<Service name="Catalina">
+		<Connector port="8080" protocol="HTTP/1.1"
+		           connectionTimeout="20000"
+		           URIEncoding="UTF-8"
+		           redirectPort="8443"/>
+		<Engine name="Catalina" defaultHost="localhost">
+			<Host name="localhost" appBase="webapps"
+			      unpackWARs="true" autoDeploy="true">
+				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+				       prefix="localhost_access_log" suffix=".txt"
+				       pattern="%h %l %u %t &quot;%r&quot; %s %b"/>
+			</Host>
+		</Engine>
+	</Service>
+</Server>

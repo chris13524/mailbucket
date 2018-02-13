@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.grails.plugins:fields:2.2.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/fields/2.2.3/79149f99c909ddae5bc11d89642e14d2a275e683/fields-2.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails.plugins/fields/2.2.3/68c1b79f36ad81bb93b2d342220d4d66254e1e8d/fields-2.2.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

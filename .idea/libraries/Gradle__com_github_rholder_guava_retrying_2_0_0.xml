@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.rholder:guava-retrying:2.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.rholder/guava-retrying/2.0.0/974bc0a04a11cc4806f7c20a34703bd23c34e7f4/guava-retrying-2.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.rholder/guava-retrying/2.0.0/e26af7bfb282fa2787191f383950f030243c5480/guava-retrying-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

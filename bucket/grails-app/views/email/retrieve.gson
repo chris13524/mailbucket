@@ -1,0 +1,8 @@
+import bucket.Email
+
+model {
+	Email email
+}
+
+response.status 200
+json tmpl.email(email)

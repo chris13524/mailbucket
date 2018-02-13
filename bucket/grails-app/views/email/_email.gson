@@ -1,0 +1,15 @@
+import bucket.Email
+
+model {
+	Email email
+}
+
+json {
+	smtpTo email.smtpTo
+	smtpFrom email.smtpFrom
+	to email.to
+	from email.from
+	subject email.subject
+	body email.body
+	headers email.headers
+}

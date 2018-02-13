@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.grails:grails-web-sitemesh:3.3.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-sitemesh/3.3.0/93ce68536c5806bcfc2b4a65cf57971f4bd0d2ce/grails-web-sitemesh-3.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.grails/grails-web-sitemesh/3.3.0/1d0c1e3f9c015454e063c6ab1a7f5b80ec084720/grails-web-sitemesh-3.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

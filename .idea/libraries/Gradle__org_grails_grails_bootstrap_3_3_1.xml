@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: org.grails:grails-bootstrap:3.3.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/grails/grails-bootstrap/3.3.1/grails-bootstrap-3.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

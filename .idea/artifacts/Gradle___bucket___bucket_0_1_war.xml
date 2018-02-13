@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gradle : bucket : bucket-0.1.war">
+    <output-path>$PROJECT_DIR$/bucket/build/libs</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$/bucket" />
+    </properties>
+    <root id="archive" name="bucket-0.1.war">
+      <element id="artifact" artifact-name="Gradle : bucket : bucket-0.1.war (exploded)" />
+    </root>
+  </artifact>
+</component>
