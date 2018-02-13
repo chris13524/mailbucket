@@ -41,7 +41,7 @@
 	
 	<ul>
 		<li>If the email hasn't been delivered (yet), the request will block for up to 60 seconds until the email is actually delivered. Feel free to make the request again if something is slow for some reason.</li>
-		<li>Emails will be stored for up to 1 hour. After that, they will be deleted.</li>
+		<li>Emails are stored for up to 1 hour. After that, they are deleted.</li>
 		<li>If a second email comes in with the same address, it will overwrite the already existing one.</li>
 		<li>Once you retrieve the email, it will be deleted forever.</li>
 		<li>You can also checkout the source over on <a href="https://github.com/chris13524/mailbucket">GitHub</a>.</li>
