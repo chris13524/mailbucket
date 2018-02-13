@@ -1,7 +1,7 @@
 version: "2"
 services:
 
-  bucket:
+  mailbucket:
     restart: always
     image: chris13524/mailbucket:latest
     build:
