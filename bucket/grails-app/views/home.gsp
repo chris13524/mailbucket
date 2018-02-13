@@ -34,7 +34,7 @@
 	
 	<h3>Isn't this insecure?</h3>
 	
-	<p>Well, if you use a simple address like mytest@mailbucket.io, then yes, anybody can read the email you're sending. But don't do that, make up a random address like <code>Y1IhwHzkdnY3z8@mailbucket.io</code> and use that.
+	<p>Well, if you use a simple address like mytest@mailbucket.io, then yes, anybody can read the email you're sending. But don't do that, make up a random address like <code>Y1IhwHzkdnY3z8@mailbucket.io</code> and use that. Additionally, I suggest generating this address on-the-fly rather than hard coding it.
 	</p>
 	
 	<h3>Technicalities</h3>
