@@ -30,5 +30,6 @@ class Email {
 		from column: "`from`", type: "text"
 		subject column: "`subject`", type: "text"
 		body type: "text"
+		headers type: "text"
 	}
 }
