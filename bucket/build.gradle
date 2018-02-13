@@ -7,6 +7,7 @@ buildscript {
 		classpath "org.grails:grails-gradle-plugin:$grailsVersion"
 		classpath "org.grails.plugins:hibernate5:${gormVersion - ".RELEASE"}"
 		classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.2"
+		classpath "org.grails.plugins:views-gradle:1.2.6"
 	}
 }
 
@@ -19,6 +20,7 @@ apply plugin: "war"
 apply plugin: "org.grails.grails-web"
 apply plugin: "asset-pipeline"
 apply plugin: "org.grails.grails-gsp"
+apply plugin: "org.grails.plugins.views-json"
 
 repositories {
 	mavenLocal()
