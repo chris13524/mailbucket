@@ -15,11 +15,10 @@ json {
 	headers renderHeaders(email.headers)
 }
 
-String renderHeaders(Set<Header> headers) {
-	String res = "["
+static Map<String, String> renderHeaders(Set<Header> headers) {
+	Map<String, String> res = [:]
 	for (Header header : headers) {
-		res += '"' + header.name + '":"' + header.value + '",'
+		res[header.name] = header.value
 	}
-	res += "]"
 	return res
 }
