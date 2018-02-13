@@ -24,6 +24,8 @@ class EmailService {
 	private SMTPServer smtpServer
 	private ScheduledExecutorService scheduler
 	
+	ConfigService configService
+	
 	void pushEmail(Email email) {
 		log.info("push email: " + (email as JSON))
 		Email.findAllBySmtpTo(email.smtpTo, [lock: true]).forEach({ Email e ->
@@ -67,7 +69,7 @@ class EmailService {
 			pushEmail(email)
 		})
 		smtpServer = new SMTPServer(myFactory)
-		smtpServer.setPort(25)
+		smtpServer.setPort(configService.smtpPort as Integer)
 		smtpServer.start()
 		
 		// setup expiration service

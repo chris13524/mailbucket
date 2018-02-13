@@ -64,6 +64,8 @@ dependencies {
 	compile "org.grails.plugins:views-json-templates:1.2.3"
 	compile "org.subethamail:subethasmtp:3.1.7"
 	compile "com.github.rholder:guava-retrying:2.0.0"
+	
+	testCompile "org.grails.plugins:mail:2.0.0.RC6" // email
 }
 
 bootRun {
