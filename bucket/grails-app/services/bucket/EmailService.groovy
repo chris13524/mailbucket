@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 @GrailsCompileStatic
 @Transactional
 class EmailService {
-	private static final Integer EXPIRE_AFTER = 60
+	private static final Integer EXPIRE_AFTER = 60 * 60
 	private static final Retryer<Email> emailRetryer = RetryerBuilder.<Email> newBuilder()
 			.retryIfResult(Predicates.isNull())
 			.withWaitStrategy(WaitStrategies.fixedWait(1, TimeUnit.SECONDS))
@@ -74,7 +74,7 @@ class EmailService {
 		scheduler = Executors.newScheduledThreadPool(1)
 		scheduler.scheduleAtFixedRate({
 			deleteExpiredEmails()
-		}, 0, 1, TimeUnit.MINUTES)
+		}, 0, 5, TimeUnit.MINUTES)
 	}
 	
 	void destroy() {
