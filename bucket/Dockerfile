@@ -25,7 +25,7 @@ FROM tomcat:8.5.3-jre8
 RUN rm -rf /usr/local/tomcat/conf/ & \
     rm -rf /usr/local/tomcat/webapps/
     
-COPY --from=0 build/libs/bucket-0.1.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=0 /app/build/libs/bucket-0.1.war /usr/local/tomcat/webapps/ROOT.war
 COPY tomcat-conf/ /usr/local/tomcat/conf/
 COPY setenv.sh /usr/local/tomcat/bin/setenv.sh
 
