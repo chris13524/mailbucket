@@ -15,3 +15,6 @@ For more information, see [mailbucket.io](https://mailbucket.io).
  - support for multipart
  - support for possible duplicate header fields
  - store original email content
+
+## Host myself?
+Sure! Just install Docker and Docker Compose and run `docker-compose up -d`.
