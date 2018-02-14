@@ -11,17 +11,19 @@ class Email {
 	String from
 	String subject
 	String body
+	String original
 	
 	static hasMany = [headers: Header]
 	
 	static constraints = {
+		received nullable: false
 		smtpTo nullable: false
 		smtpFrom nullable: false
 		to nullable: false
 		from nullable: false
 		subject nullable: false
 		body nullable: false
-		received nullable: false
+		original nullable: false
 	}
 	
 	static mapping = {
@@ -31,5 +33,6 @@ class Email {
 		from column: "`from`", type: "text"
 		subject column: "`subject`", type: "text"
 		body type: "text"
+		original type: "text"
 	}
 }

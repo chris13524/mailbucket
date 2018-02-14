@@ -39,9 +39,13 @@ class MyMessageHandlerFactory implements MessageHandlerFactory {
 			email.smtpTo = recipient
 		}
 		
-		void data(InputStream data) throws IOException {
+		void data(InputStream dataStream) throws IOException {
+			email.original = convertStreamToString(dataStream)
+			
 			Session s = Session.getInstance(new Properties())
-			MimeMessage message = new MimeMessage(s, data)
+			MimeMessage message = new MimeMessage(s, new ByteArrayInputStream(email.original.getBytes()))
+			
+			// get the headers and set convenience values
 			for (Enumeration<MHeader> e = message.getAllHeaders(); e.hasMoreElements();) {
 				MHeader h = e.nextElement()
 				email.addToHeaders(name: h.name, value: h.value)
@@ -54,7 +58,24 @@ class MyMessageHandlerFactory implements MessageHandlerFactory {
 				}
 			}
 			
-			email.body = message.getContent()
+			// get the content of the email
+			Object content = message.getContent()
+			if (content instanceof String) {
+				email.body = content
+			} else {
+				email.body = content.toString()
+			}
+		}
+		
+		String convertStreamToString(InputStream is) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is))
+			StringBuilder sb = new StringBuilder()
+			
+			String line = null
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n")
+			}
+			return sb.toString()
 		}
 		
 		void done() {

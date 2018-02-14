@@ -13,6 +13,7 @@ json {
 	subject email.subject
 	body email.body
 	headers renderHeaders(email.headers)
+	original email.original
 }
 
 static Map<String, String> renderHeaders(Set<Header> headers) {

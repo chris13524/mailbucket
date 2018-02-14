@@ -31,6 +31,7 @@ class EmailSpec extends Specification {
 		email.smtpFrom == "from@example.com"
 		email.subject == "test1subject"
 		email.body.trim() == "test1text"
+		email.original.contains("To: test1@mailbucket.io")
 	}
 	
 	void "send async and then get"() {
@@ -56,6 +57,7 @@ class EmailSpec extends Specification {
 		email.smtpFrom == "from@example.com"
 		email.subject == "test1subject"
 		email.body.trim() == "test1text"
+		email.original.contains("To: test1@mailbucket.io")
 	}
 	
 	void "send async after delay and then get"() {
@@ -83,5 +85,6 @@ class EmailSpec extends Specification {
 		email.smtpFrom == "from@example.com"
 		email.subject == "test1subject"
 		email.body.trim() == "test1text"
+		email.original.contains("To: test1@mailbucket.io")
 	}
 }
