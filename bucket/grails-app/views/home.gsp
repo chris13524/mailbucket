@@ -42,7 +42,7 @@
 	<h3>Technicalities</h3>
 	
 	<ul>
-		<li>If the email hasn't been delivered (yet), the request will block for up to 60 seconds until the email is actually delivered. Feel free to make the request again if something is slow for some reason.</li>
+		<li>If the email hasn't been received yet, the request will block for up to 60 seconds until the email is actually delivered. Feel free to make the request again if your mail sending implementation is <i>that</i> slow.</li>
 		<li>The email can only be retrieved once. Additional requests will block as described above.</li>
 		<li>Unretrieved emails are deleted after 1 hour.</li>
 		<li>If a second email comes in, it will overwrite the already existing one.</li>
