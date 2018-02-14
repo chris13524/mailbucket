@@ -10,11 +10,11 @@ For more information, see [mailbucket.io](https://mailbucket.io).
  - from - an alias for the 'From' header field
  - subject - an alias for the 'Subject' header field
  - headers - an object representing the header fields
+ - original - the original email content
 
 ## TODO
  - support for multipart
  - support for possible duplicate header fields
- - store original email content
 
 ## Host myself?
 Sure! Just install Docker and Docker Compose and run `docker-compose up -d`.
