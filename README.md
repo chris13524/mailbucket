@@ -14,3 +14,4 @@ For more information, see [mailbucket.io](https://mailbucket.io).
 ## TODO
  - support for multipart
  - support for possible duplicate header fields
+ - store original email content
