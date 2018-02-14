@@ -19,9 +19,9 @@ class Email {
 		received nullable: false
 		smtpTo nullable: false
 		smtpFrom nullable: false
-		to nullable: false
-		from nullable: false
-		subject nullable: false
+		to nullable: true
+		from nullable: true
+		subject nullable: true
 		body nullable: false
 		original nullable: false
 	}
