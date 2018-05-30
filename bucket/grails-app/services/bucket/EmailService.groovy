@@ -82,5 +82,6 @@ class EmailService {
 	void destroy() {
 		smtpServer.stop()
 		scheduler.shutdown()
+		scheduler.awaitTermination(1, TimeUnit.MINUTES)
 	}
 }
