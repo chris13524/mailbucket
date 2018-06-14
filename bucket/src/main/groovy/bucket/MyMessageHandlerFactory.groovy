@@ -6,9 +6,6 @@ import org.subethamail.smtp.MessageHandler
 import org.subethamail.smtp.MessageHandlerFactory
 import org.subethamail.smtp.RejectException
 
-import javax.mail.Header as MHeader
-import javax.mail.Session
-import javax.mail.internet.MimeMessage
 import java.util.function.Consumer
 
 @GrailsCompileStatic
@@ -40,42 +37,7 @@ class MyMessageHandlerFactory implements MessageHandlerFactory {
 		}
 		
 		void data(InputStream dataStream) throws IOException {
-			email.original = convertStreamToString(dataStream)
-			
-			Session s = Session.getInstance(new Properties())
-			MimeMessage message = new MimeMessage(s, new ByteArrayInputStream(email.original.getBytes()))
-			
-			// get the headers and set convenience values
-			for (Enumeration<MHeader> e = message.getAllHeaders(); e.hasMoreElements();) {
-				MHeader h = e.nextElement()
-				email.addToHeaders(name: h.name, value: h.value)
-				if (h.name == "To") {
-					email.to = h.value
-				} else if (h.name == "From") {
-					email.from = h.value
-				} else if (h.name == "Subject") {
-					email.subject = h.value
-				}
-			}
-			
-			// get the content of the email
-			Object content = message.getContent()
-			if (content instanceof String) {
-				email.body = content
-			} else {
-				email.body = content.toString()
-			}
-		}
-		
-		String convertStreamToString(InputStream is) {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is))
-			StringBuilder sb = new StringBuilder()
-			
-			String line = null
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n")
-			}
-			return sb.toString()
+			email.payload = Utils.convertStreamToString(dataStream)
 		}
 		
 		void done() {
