@@ -102,7 +102,9 @@ class EmailController {
 				
 				String rawType = part.contentType
 				String type = rawType.split(";")[0]
-				Object body = renderContent(part.content).first
+				Tuple2<Object, Object> tmpBody = renderContent(part.content)
+				Object body = tmpBody.first
+				Object rawBody = tmpBody.second
 				
 				Map<String, String> headers
 				List<Map<String, String>> rawHeaders
@@ -115,6 +117,7 @@ class EmailController {
 						headers   : headers,
 						rawHeaders: rawHeaders,
 						body      : body,
+						rawBody   : rawBody
 				]
 			}
 			return new Tuple2(result, rawResult)
