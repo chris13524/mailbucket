@@ -53,11 +53,8 @@ class EmailController {
 		// convert it into a map tree
 		(body, rawBody) = renderContent(content)
 		
-		// if multipart, extract the plain text and html parts
 		if (body instanceof Map) {
-			Map<String, Object> parts = (Map) body
-			text = parts["text/plain"]
-			html = parts["text/html"]
+			(text, html) = extractTextHtml(body)
 		} else if (body instanceof String) {
 			if (contentType == "text/plain") {
 				text = body
@@ -145,5 +142,24 @@ class EmailController {
 		}
 		
 		return new Tuple2(headers, rawHeaders)
+	}
+	
+	private static Tuple2<String, String> extractTextHtml(Map<String, Object> body) {
+		String text = null
+		String html = null
+		
+		for (Map.Entry<String, Object> part : body) {
+			if (part.key == "text/plain") {
+				text = part.value
+			} else if (part.key == "text/html") {
+				html = part.value
+			} else if (part.key.startsWith("multipart/")) {
+				def (String textCandidate, String htmlCandidate) = extractTextHtml(part.value as Map)
+				if (text == null) text = textCandidate
+				if (html == null) html = htmlCandidate
+			}
+		}
+		
+		return new Tuple2<String, String>(text, html)
 	}
 }
