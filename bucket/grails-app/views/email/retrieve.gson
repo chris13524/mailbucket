@@ -1,8 +1,39 @@
-import bucket.Email
-
 model {
-	Email email
+	String smtpTo
+	String smtpFrom
+	String raw
+	
+	String to
+	String from
+	String subject
+	
+	Map<String, String> headers
+	List<Map<String, String>> rawHeaders
+	
+	String contentType
+	String rawContentType
+	def body
+	def rawBody
+	String text
+	String html
 }
 
-response.status 200
-json tmpl.email(email)
+json {
+	smtpTo smtpTo
+	smtpFrom smtpFrom
+	raw raw
+	
+	to to
+	from from
+	subject subject
+	
+	headers headers
+	rawHeaders rawHeaders
+	
+	contentType contentType
+	rawContentType rawContentType
+	body body
+	rawBody rawBody
+	text text
+	html html
+}
