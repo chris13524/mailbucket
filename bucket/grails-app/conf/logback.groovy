@@ -31,7 +31,9 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
 			pattern = "%level %logger - %msg%n"
 		}
 	}
-	root(INFO, ["STDOUT"])
+	root(ERROR, ["STDOUT"])
+	logger("bucket", ALL, ["STDOUT"])
 } else {
-	root(INFO, ["STDOUT"])
+	root(ERROR, ["STDOUT"])
+	logger("bucket", ALL, ["STDOUT"])
 }

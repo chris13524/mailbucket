@@ -3,6 +3,7 @@ package bucket
 import com.github.rholder.retry.*
 import com.google.common.base.Predicates
 import grails.compiler.GrailsCompileStatic
+import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import org.subethamail.smtp.server.SMTPServer
 
@@ -26,9 +27,10 @@ class EmailService {
 	ConfigService configService
 	
 	void pushEmail(Email email) {
-		//log.info("push email: " + (email as JSON))
+		log.debug("pushEmail(email:" + (email as JSON) + ")")
+		log.info("push email from: $email.smtpFrom")
 		Email.findAllBySmtpTo(email.smtpTo, [lock: true]).forEach({ Email e ->
-			//log.info("overwriting email: " + (email as JSON))
+			log.debug("overwriting email: " + (email as JSON))
 			e.delete(flush: true)
 		})
 		email.save(flush: true)
@@ -36,7 +38,7 @@ class EmailService {
 	
 	void deleteExpiredEmails() {
 		Email.findAllByReceivedLessThan(System.currentTimeSeconds() - EXPIRE_AFTER, [lock: true]).forEach({ Email email ->
-			//log.info("expire email: " + (email as JSON))
+			log.debug("expire email: " + (email as JSON))
 			email.delete(flush: true)
 		})
 	}
@@ -47,7 +49,8 @@ class EmailService {
 				Email email = Email.findBySmtpTo(address, [lock: true])
 				
 				if (email != null) {
-					//log.info("pop email: " + (email as JSON))
+					log.info("pop email from: $email.smtpFrom")
+					log.debug("pop email: " + (email as JSON))
 					email.delete(flush: true)
 				}
 				
