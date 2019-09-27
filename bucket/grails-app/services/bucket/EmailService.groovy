@@ -43,10 +43,20 @@ class EmailService {
 		})
 	}
 	
-	Email popLatestEmail(String address) {
+	Email popLatestEmail(String address, boolean matchCase = false) {
+		log.trace("popLatestEmail(address:$address, matchCase:$matchCase)")
 		try {
 			emailRetryer.call({
-				Email email = Email.findBySmtpTo(address, [lock: true])
+				Email email
+				if (matchCase) {
+					email = Email.findBySmtpTo(address, [lock: true])
+				} else {
+					String escaped = address
+							.replaceAll("%", "\\\\%")
+							.replaceAll("_", "\\\\_")
+					log.trace("escaped: $escaped")
+					email = Email.findBySmtpToIlike(escaped, [lock: true])
+				}
 				
 				if (email != null) {
 					log.info("pop email from: $email.smtpFrom")

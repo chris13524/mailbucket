@@ -56,6 +56,8 @@
 		<li>The email can only be retrieved once. Additional requests will block as described above.</li>
 		<li>Unretrieved emails are deleted after 1 hour.</li>
 		<li>If a second email comes in, it will overwrite the already existing one.</li>
+		<li>Retrieval is, by default, case insensitive. If you want to be explicit, provide the <code>?matchCase=true</code> URL parameter.</li>
+		<li>Remember to URL encode if your email addresses have any special characters!</li>
 		<li>You can use a different domain than mailbucket.io, if you like. Just be sure that somewhere down the line you're sending stuff to this server.</li>
 		<li>You can also checkout the source over on <a href="https://github.com/chris13524/mailbucket">GitHub</a>.</li>
 	</ul>
