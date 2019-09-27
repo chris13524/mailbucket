@@ -54,7 +54,6 @@ class EmailService {
 					String escaped = address
 							.replaceAll("%", "\\\\%")
 							.replaceAll("_", "\\\\_")
-					log.trace("escaped: $escaped")
 					email = Email.findBySmtpToIlike(escaped, [lock: true])
 				}
 				
