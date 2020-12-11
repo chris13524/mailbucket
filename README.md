@@ -29,6 +29,6 @@ You should get back a JSON response containing these fields:
 Sure! Just install Docker and Docker Compose, adjust the hostname in the `Caddyfile`, and run `docker-compose up -d`.
 
 ## TODO
- - easier API to retrieve attachements
- - filtering API response
+ - easier API to retrieve attachments
  - TypeScript class (to document the API better)
+ - port to Rust (not seeing any good SMTP server libraries so will have to implement own)
