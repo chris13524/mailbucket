@@ -8,6 +8,9 @@ services:
       context: bucket
     ports:
       - "25:25"
+    logging:
+      options:
+        max-size: "50m"
       
   caddy:
     restart: always
