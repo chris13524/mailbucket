@@ -1,5 +1,7 @@
 package bucket
 
+import grails.converters.JSON
+
 import javax.mail.BodyPart
 import javax.mail.Header
 import javax.mail.Session
@@ -10,13 +12,19 @@ class EmailController {
 	EmailService emailService
 	
 	def retrieve() {
+		log.trace("retrieve()")
 		String emailAddress = params.emailAddress
 		if (emailAddress == null) {
 			response.sendError(400)
 			return
 		}
+		log.trace("emailAddress: $emailAddress")
 		
-		Email email = emailService.popLatestEmail(emailAddress)
+		boolean matchCase = params.matchCase ?: false
+		log.trace("matchCase: $matchCase")
+		
+		Email email = emailService.popLatestEmail(emailAddress, matchCase)
+		log.trace("email: ${email as JSON}")
 		
 		if (email == null) {
 			response.sendError(404)
