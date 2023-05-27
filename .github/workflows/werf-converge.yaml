@@ -1,0 +1,26 @@
+name: "Werf Converge"
+on:
+  push:
+    branches: [v2]
+
+jobs:
+  converge:
+    name: Converge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save testing-cluster
+
+      - name: Converge
+        uses: werf/actions/converge@v1.2
+        with:
+          env: production

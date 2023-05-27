@@ -1,0 +1,6 @@
+project: mailbucket
+configVersion: 1
+
+---
+image: mailbucket
+dockerfile: Dockerfile

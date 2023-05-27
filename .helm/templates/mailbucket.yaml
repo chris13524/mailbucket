@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailbucket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailbucket
+  template:
+    metadata:
+      labels:
+        app: mailbucket
+    spec:
+      containers:
+        - name: mailbucket
+          image: {{ $.Values.werf.image.mailbucket }}

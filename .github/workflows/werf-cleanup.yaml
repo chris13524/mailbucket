@@ -1,0 +1,25 @@
+name: "Werf Cleanup"
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save testing-cluster
+
+      - name: Cleanup
+        uses: werf/actions/cleanup@v1.2
