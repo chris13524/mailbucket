@@ -3,12 +3,11 @@ use crate::transport::MailTransport;
 use samotop_core::{common::*, mail::*};
 
 #[derive(Debug)]
-pub struct MailHandler {
-}
+pub struct MailHandler {}
 
 impl MailHandler {
     pub fn new() -> Result<MailHandler> {
-        Ok(MailHandler { })
+        Ok(MailHandler {})
     }
 }
 

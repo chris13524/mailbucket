@@ -1,7 +1,7 @@
 use futures::io::AsyncWriteExt;
 use futures_lite::future::FutureExt;
 use futures_util::io::Cursor;
-use log::{debug, trace, info};
+use log::{debug, info, trace};
 use pin_project::pin_project;
 use samotop_core::common::*;
 use samotop_delivery::MailDataStream;

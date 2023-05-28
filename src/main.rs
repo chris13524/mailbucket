@@ -1,8 +1,8 @@
+mod args;
 mod dispatch;
 mod handler;
 mod stream;
 mod transport;
-mod args;
 
 use args::Args;
 use clap::Parser;
@@ -15,12 +15,15 @@ type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    env_logger::init();
+
     let args = Args::parse();
 
-    env_logger::init();
+    smtp_server(&args.addrs).await
+}
+
+async fn smtp_server(addrs: &str) -> Result<()> {
     let service = Builder + DebugService::default() + Esmtp.with(SmtpParser) + MailHandler::new()?;
 
-    TcpServer::on(args.addrs)
-        .serve(service.build())
-        .await
+    TcpServer::on(addrs).serve(service.build()).await
 }
