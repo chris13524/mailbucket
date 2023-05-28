@@ -1,3 +1,8 @@
 caddy/*
 .idea
 *.iml
+
+
+# Added by cargo
+
+/target

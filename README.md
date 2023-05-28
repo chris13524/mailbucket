@@ -1,4 +1,4 @@
-# Mail Bucket
+# MailBucket
 
 For more information, see [mailbucket.io](https://mailbucket.io).
 

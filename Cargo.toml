@@ -1,0 +1,18 @@
+[package]
+name = "mailbucket"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+samotop = "0.13.2"
+log = "0.4"
+env_logger = "0.10.0"
+tokio = { version = "1.28.1", features = ["full"] }
+samotop-delivery = "0.13.1"
+samotop-core = "0.13.1"
+pin-project = "1.1.0"
+futures-util = "0.3.28"
+futures = "0.3.28"
+futures-lite = "1.13.0"
