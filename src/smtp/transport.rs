@@ -30,16 +30,6 @@ impl Transport for MailTransport {
     where
         's: 'a,
     {
-        let id = envelope.message_id().to_owned();
-
-        let mut headers = String::new();
-        if let Some(sender) = envelope.from() {
-            headers += format!("X-Samotop-From: {}\r\n", sender).as_str();
-        }
-        for rcpt in envelope.to() {
-            headers += format!("X-Samotop-To: {}\r\n", rcpt).as_str();
-        }
-
-        Box::pin(async move { Ok(Stream::new(id, self.deliver_mail)) })
+        Box::pin(async move { Ok(Stream::new(envelope, self.deliver_mail)) })
     }
 }

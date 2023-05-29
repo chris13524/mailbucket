@@ -13,5 +13,13 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
 
-    smtp_server(&args.addrs, |email| println!("{email}")).await
+    smtp_server(&args.addrs, |email| {
+        println!(
+            "Received email (from:{}, to:{}) body: {}",
+            email.envelope.from().unwrap(),
+            email.envelope.to()[0],
+            email.body
+        )
+    })
+    .await
 }

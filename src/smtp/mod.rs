@@ -4,6 +4,7 @@ use samotop_core::{
     server::TcpServer,
     smtp::Esmtp,
 };
+use samotop_delivery::types::Envelope;
 
 use self::handler::MailHandler;
 
@@ -14,7 +15,13 @@ mod transport;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 
-pub type DeliverMail = fn(email: &str) -> ();
+#[derive(Debug)]
+pub struct Email {
+    pub envelope: Envelope,
+    pub body: String,
+}
+
+pub type DeliverMail = fn(email: Email) -> ();
 
 pub async fn smtp_server(bind_addrs: &str, deliver_mail: DeliverMail) -> Result<()> {
     let service = Builder
