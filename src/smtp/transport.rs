@@ -1,4 +1,4 @@
-use crate::{stream::Stream, DeliverMail};
+use super::{stream::Stream, DeliverMail};
 use samotop_core::mail::DispatchError;
 use samotop_delivery::{types::Envelope, SyncFuture, Transport};
 

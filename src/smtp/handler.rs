@@ -1,5 +1,6 @@
-use crate::transport::MailTransport;
-use crate::{dispatch::DispatchMail, DeliverMail};
+use super::dispatch::DispatchMail;
+use super::transport::MailTransport;
+use super::DeliverMail;
 use samotop_core::{common::*, mail::*};
 
 pub struct MailHandler {
@@ -14,7 +15,9 @@ impl fmt::Debug for MailHandler {
 
 impl MailHandler {
     pub fn new(delivered_mail: DeliverMail) -> Result<MailHandler> {
-        Ok(MailHandler { deliver_mail: delivered_mail })
+        Ok(MailHandler {
+            deliver_mail: delivered_mail,
+        })
     }
 }
 

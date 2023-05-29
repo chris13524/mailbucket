@@ -1,4 +1,4 @@
-use crate::DeliverMail;
+use super::DeliverMail;
 use futures::io::AsyncWriteExt;
 use futures_lite::future::FutureExt;
 use futures_util::io::Cursor;
