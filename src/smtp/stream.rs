@@ -1,8 +1,5 @@
-use crate::smtp::Email;
-
 use super::DeliverMail;
-use futures::io::AsyncWriteExt;
-use futures_lite::future::FutureExt;
+use crate::smtp::Email;
 use futures_util::io::Cursor;
 use log::{debug, trace};
 use pin_project::pin_project;
@@ -43,16 +40,12 @@ impl io::Write for Stream {
         buf: &[u8],
     ) -> Poll<std::io::Result<usize>> {
         debug!("poll_write");
-        self.project()
-            .buf
-            .write_all(buf)
-            .poll(cx)
-            .map(|x| x.map(|_| buf.len()))
+        Pin::new(self.project().buf).poll_write(cx, buf)
     }
 
     fn poll_flush(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<std::io::Result<()>> {
         trace!("poll_flush");
-        self.project().buf.flush().poll(cx)
+        Pin::new(self.project().buf).poll_flush(cx)
     }
 
     fn poll_close(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<std::io::Result<()>> {

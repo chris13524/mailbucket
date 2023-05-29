@@ -10,10 +10,11 @@ use samotop_core::{
     smtp::Esmtp,
 };
 use samotop_delivery::types::Envelope;
+use serde::Serialize;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 
-#[derive(Debug)]
+#[derive(Serialize, Debug)]
 pub struct Email {
     pub envelope: Envelope,
     pub body: String,
