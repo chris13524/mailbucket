@@ -3,7 +3,7 @@ mod smtp;
 
 use args::Args;
 use clap::Parser;
-use smtp::smtp_server;
+use smtp::{smtp_server, Email};
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 
@@ -13,13 +13,14 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
 
-    smtp_server(&args.addrs, |email| {
+    let deliver_mail = |email: Email| {
         println!(
             "Received email (from:{}, to:{}) body: {}",
             email.envelope.from().unwrap(),
             email.envelope.to()[0],
             email.body
         )
-    })
-    .await
+    };
+
+    smtp_server(&args.addrs, deliver_mail).await
 }
