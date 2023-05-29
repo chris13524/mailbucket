@@ -1,28 +1,21 @@
+use super::DeliverMail;
+use crate::smtp::stream::Stream;
 use log::{error, trace};
 use samotop_core::{common::*, mail::*, smtp::SmtpSession};
-use samotop_delivery::prelude::{EmailAddress, Envelope, Transport};
-use std::fmt;
+use samotop_delivery::prelude::{EmailAddress, Envelope};
 
 #[derive(Debug)]
-pub struct DispatchMail<T> {
-    transport: T,
+pub struct DispatchMail {
+    deliver_mail: DeliverMail,
 }
 
-impl<T> DispatchMail<T> {
-    pub fn new(transport: T) -> Self
-    where
-        T: fmt::Debug,
-    {
-        Self { transport }
+impl DispatchMail {
+    pub fn new(deliver_mail: DeliverMail) -> Self {
+        Self { deliver_mail }
     }
 }
 
-impl<T> MailDispatch for DispatchMail<T>
-where
-    T: Transport + Send + Sync,
-    T::DataStream: Sync + Send + 'static,
-    T::Error: std::error::Error + Sync + Send + 'static,
-{
+impl MailDispatch for DispatchMail {
     fn open_mail_body<'a, 's, 'f>(
         &'a self,
         session: &'s mut SmtpSession,
@@ -32,7 +25,7 @@ where
         's: 'f,
     {
         Box::pin(async move {
-            match deliver_mail(&self.transport, &mut session.transaction).await {
+            match deliver_mail(self.deliver_mail, &mut session.transaction).await {
                 Err(e) => {
                     error!("Failed to start mail: {:?}", e);
                     Err(DispatchError::Temporary)
@@ -43,12 +36,7 @@ where
     }
 }
 
-async fn deliver_mail<T>(transport: &T, transaction: &mut Transaction) -> Result<()>
-where
-    T: Transport + Send + Sync,
-    T::DataStream: Sync + Send + 'static,
-    T::Error: std::error::Error + Sync + Send + 'static,
-{
+async fn deliver_mail(deliver_mail: DeliverMail, transaction: &mut Transaction) -> Result<()> {
     let sender = transaction
         .mail
         .as_ref()
@@ -63,8 +51,7 @@ where
     let envelope =
         Envelope::new(sender, recipients?, transaction.id.clone()).map_err(Error::from)?;
     trace!("Starting downstream mail transaction.");
-    let stream = transport.send_stream(envelope).await?;
-    transaction.sink = Some(Box::pin(stream));
+    transaction.sink = Some(Box::pin(Stream::new(envelope, deliver_mail)));
 
     Ok(())
 }

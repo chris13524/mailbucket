@@ -1,3 +1,8 @@
+mod dispatch;
+mod handler;
+mod stream;
+
+use self::handler::MailHandler;
 use samotop::smtp::SmtpParser;
 use samotop_core::{
     mail::{Builder, DebugService},
@@ -5,13 +10,6 @@ use samotop_core::{
     smtp::Esmtp,
 };
 use samotop_delivery::types::Envelope;
-
-use self::handler::MailHandler;
-
-mod dispatch;
-mod handler;
-mod stream;
-mod transport;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync>>;
 

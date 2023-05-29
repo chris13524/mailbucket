@@ -1,5 +1,4 @@
 use super::dispatch::DispatchMail;
-use super::transport::MailTransport;
 use super::DeliverMail;
 use samotop_core::{common::*, mail::*};
 
@@ -21,12 +20,8 @@ impl MailHandler {
     }
 }
 
-impl<T: AcceptsDispatch> MailSetup<T> for MailHandler
-where
-    DispatchMail<MailTransport>: MailDispatch,
-{
+impl<T: AcceptsDispatch> MailSetup<T> for MailHandler {
     fn setup(self, config: &mut T) {
-        let transport = MailTransport::new(self.deliver_mail);
-        config.add_last_dispatch(DispatchMail::new(transport))
+        config.add_last_dispatch(DispatchMail::new(self.deliver_mail))
     }
 }
