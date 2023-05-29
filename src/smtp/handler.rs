@@ -1,9 +1,9 @@
 use super::dispatch::DispatchMail;
-use super::DeliverMail;
+use crate::email_handler::EmailHandler;
 use samotop_core::{common::*, mail::*};
 
 pub struct MailHandler {
-    deliver_mail: DeliverMail,
+    email_handler: EmailHandler,
 }
 
 impl fmt::Debug for MailHandler {
@@ -13,15 +13,13 @@ impl fmt::Debug for MailHandler {
 }
 
 impl MailHandler {
-    pub fn new(delivered_mail: DeliverMail) -> Result<MailHandler> {
-        Ok(MailHandler {
-            deliver_mail: delivered_mail,
-        })
+    pub fn new(email_handler: EmailHandler) -> Self {
+        MailHandler { email_handler }
     }
 }
 
 impl<T: AcceptsDispatch> MailSetup<T> for MailHandler {
     fn setup(self, config: &mut T) {
-        config.add_last_dispatch(DispatchMail::new(self.deliver_mail))
+        config.add_last_dispatch(DispatchMail::new(self.email_handler))
     }
 }

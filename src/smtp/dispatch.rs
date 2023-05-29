@@ -1,17 +1,16 @@
-use super::DeliverMail;
-use crate::smtp::stream::Stream;
+use crate::{email_handler::EmailHandler, smtp::stream::Stream};
 use log::{error, trace};
 use samotop_core::{common::*, mail::*, smtp::SmtpSession};
 use samotop_delivery::prelude::{EmailAddress, Envelope};
 
 #[derive(Debug)]
 pub struct DispatchMail {
-    deliver_mail: DeliverMail,
+    email_handler: EmailHandler,
 }
 
 impl DispatchMail {
-    pub fn new(deliver_mail: DeliverMail) -> Self {
-        Self { deliver_mail }
+    pub fn new(email_handler: EmailHandler) -> Self {
+        Self { email_handler }
     }
 }
 
@@ -25,7 +24,7 @@ impl MailDispatch for DispatchMail {
         's: 'f,
     {
         Box::pin(async move {
-            match deliver_mail(self.deliver_mail, &mut session.transaction).await {
+            match email_handler(&self.email_handler, &mut session.transaction).await {
                 Err(e) => {
                     error!("Failed to start mail: {:?}", e);
                     Err(DispatchError::Temporary)
@@ -36,7 +35,7 @@ impl MailDispatch for DispatchMail {
     }
 }
 
-async fn deliver_mail(deliver_mail: DeliverMail, transaction: &mut Transaction) -> Result<()> {
+async fn email_handler(email_handler: &EmailHandler, transaction: &mut Transaction) -> Result<()> {
     let sender = transaction
         .mail
         .as_ref()
@@ -51,7 +50,7 @@ async fn deliver_mail(deliver_mail: DeliverMail, transaction: &mut Transaction) 
     let envelope =
         Envelope::new(sender, recipients?, transaction.id.clone()).map_err(Error::from)?;
     trace!("Starting downstream mail transaction.");
-    transaction.sink = Some(Box::pin(Stream::new(envelope, deliver_mail)));
+    transaction.sink = Some(Box::pin(Stream::new(envelope, email_handler.clone())));
 
     Ok(())
 }

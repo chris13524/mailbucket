@@ -3,6 +3,7 @@ mod handler;
 mod stream;
 
 use self::handler::MailHandler;
+use crate::email_handler::EmailHandler;
 use samotop::smtp::SmtpParser;
 use samotop_core::{
     mail::{Builder, DebugService},
@@ -20,13 +21,11 @@ pub struct Email {
     pub body: String,
 }
 
-pub type DeliverMail = fn(email: Email) -> ();
-
-pub async fn smtp_server(bind_addrs: &str, deliver_mail: DeliverMail) -> Result<()> {
+pub async fn smtp_server(bind_addrs: &str, email_handler: EmailHandler) -> Result<()> {
     let service = Builder
         + DebugService::default()
         + Esmtp.with(SmtpParser)
-        + MailHandler::new(deliver_mail)?;
+        + MailHandler::new(email_handler);
 
     TcpServer::on(bind_addrs).serve(service.build()).await
 }
