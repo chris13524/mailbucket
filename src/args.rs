@@ -1,6 +1,6 @@
 use clap::Parser;
 
-#[derive(Parser, Debug)]
+#[derive(Parser, Debug, Default)]
 #[command(author, version, about, long_about = None)]
 pub struct Args {
     /// SocketAddrs to bind to for SMTP. https://doc.rust-lang.org/stable/std/net/trait.ToSocketAddrs.html#tymethod.to_socket_addrs

@@ -1,5 +1,5 @@
 use super::dispatch::DispatchMail;
-use crate::email_handler::EmailHandler;
+use crate::server::EmailHandler;
 use samotop_core::{common::*, mail::*};
 
 pub struct MailHandler {

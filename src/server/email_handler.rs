@@ -1,14 +1,16 @@
-use crate::smtp::Email;
+use super::smtp_server::Email;
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::Mutex;
 
+pub type Emails = Arc<Mutex<HashMap<String, Email>>>;
+
 #[derive(Debug, Clone)]
 pub struct EmailHandler {
-    emails: Arc<Mutex<HashMap<String, Email>>>,
+    emails: Emails,
 }
 
 impl EmailHandler {
-    pub fn new(emails: Arc<Mutex<HashMap<String, Email>>>) -> Self {
+    pub fn new(emails: Emails) -> Self {
         EmailHandler { emails }
     }
 

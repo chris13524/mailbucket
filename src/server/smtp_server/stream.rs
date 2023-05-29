@@ -1,4 +1,4 @@
-use crate::{email_handler::EmailHandler, smtp::Email};
+use crate::server::{smtp_server::Email, EmailHandler};
 use futures_lite::FutureExt;
 use futures_util::io::Cursor;
 use log::{debug, trace};

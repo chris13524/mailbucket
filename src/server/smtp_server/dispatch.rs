@@ -1,4 +1,4 @@
-use crate::{email_handler::EmailHandler, smtp::stream::Stream};
+use crate::server::{smtp_server::stream::Stream, EmailHandler};
 use log::{error, trace};
 use samotop_core::{common::*, mail::*, smtp::SmtpSession};
 use samotop_delivery::prelude::{EmailAddress, Envelope};
