@@ -1,31 +1,37 @@
+use crate::DeliverMail;
 use futures::io::AsyncWriteExt;
 use futures_lite::future::FutureExt;
 use futures_util::io::Cursor;
-use log::{debug, info, trace};
+use log::{debug, trace};
 use pin_project::pin_project;
 use samotop_core::common::*;
 use samotop_delivery::MailDataStream;
 
-#[pin_project(project=MailFileProj)]
+#[pin_project(project=StreamProj)]
 pub struct Stream {
     id: String,
     closed: bool,
     buf: Cursor<Vec<u8>>,
+    deliver_mail: DeliverMail,
 }
 
 impl Stream {
-    pub fn new(id: String) -> Self {
+    pub fn new(id: String, deliver_mail: DeliverMail) -> Self {
         Self {
             id,
             closed: false,
             buf: Cursor::new(Vec::new()),
+            deliver_mail,
         }
     }
 }
 
 impl std::fmt::Debug for Stream {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Stream").field("id", &self.id).finish()
+        f.debug_struct("Stream")
+            .field("id", &self.id)
+            .field("closed", &self.closed)
+            .finish()
     }
 }
 
@@ -53,10 +59,11 @@ impl io::Write for Stream {
     fn poll_close(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<std::io::Result<()>> {
         trace!("poll_close");
         ready!(self.as_mut().poll_flush(cx))?;
-        info!(
-            "================ MAIL DATA: {}",
-            String::from_utf8(self.buf.get_ref().clone()).unwrap()
-        );
+
+        let mail = String::from_utf8(self.buf.get_ref().clone()).unwrap();
+        let deliver_mail = self.as_mut().project().deliver_mail;
+        deliver_mail(&mail);
+
         *self.project().closed = true;
         Poll::Ready(Ok(()))
     }

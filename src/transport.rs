@@ -1,13 +1,22 @@
-use crate::stream::Stream;
+use crate::{stream::Stream, DeliverMail};
 use samotop_core::mail::DispatchError;
 use samotop_delivery::{types::Envelope, SyncFuture, Transport};
 
-#[derive(Debug)]
-pub struct MailTransport {}
+pub struct MailTransport {
+    deliver_mail: DeliverMail,
+}
 
 impl MailTransport {
-    pub fn new() -> MailTransport {
-        MailTransport {}
+    pub fn new(delivered_mail: DeliverMail) -> MailTransport {
+        MailTransport {
+            deliver_mail: delivered_mail,
+        }
+    }
+}
+
+impl std::fmt::Debug for MailTransport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("MailTransport").finish()
     }
 }
 
@@ -31,6 +40,6 @@ impl Transport for MailTransport {
             headers += format!("X-Samotop-To: {}\r\n", rcpt).as_str();
         }
 
-        Box::pin(async move { Ok(Stream::new(id)) })
+        Box::pin(async move { Ok(Stream::new(id, self.deliver_mail)) })
     }
 }

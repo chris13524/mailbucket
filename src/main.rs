@@ -19,11 +19,16 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
 
-    smtp_server(&args.addrs).await
+    smtp_server(&args.addrs, |email| println!("{email}")).await
 }
 
-async fn smtp_server(addrs: &str) -> Result<()> {
-    let service = Builder + DebugService::default() + Esmtp.with(SmtpParser) + MailHandler::new()?;
+pub type DeliverMail = fn(email: &str) -> ();
 
-    TcpServer::on(addrs).serve(service.build()).await
+async fn smtp_server(bind_addrs: &str, deliver_mail: DeliverMail) -> Result<()> {
+    let service = Builder
+        + DebugService::default()
+        + Esmtp.with(SmtpParser)
+        + MailHandler::new(deliver_mail)?;
+
+    TcpServer::on(bind_addrs).serve(service.build()).await
 }
