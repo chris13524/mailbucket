@@ -13,12 +13,15 @@ spec:
         app: mailbucket
     spec:
       containers:
-        - name: mailbucket
-          image: {{ $.Values.werf.image.mailbucket }}
-          ports:
-          - containerPort: 2525
-          env:
-          - name: RUST_LOG
-            value: info
-          - name: ADDRS
-            value: "0.0.0.0:2525"
+      - name: mailbucket
+        image: {{ $.Values.werf.image.mailbucket }}
+        ports:
+        - containerPort: 2525
+        - containerPort: 8080
+        env:
+        - name: RUST_LOG
+          value: info
+        - name: BIND_SMTP_ADDRS
+          value: "0.0.0.0:2525"
+        - name: BIND_HTTP_ADDRS
+          value: "0.0.0.0:8080"
